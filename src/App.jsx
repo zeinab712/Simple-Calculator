@@ -32,7 +32,7 @@ function App() {
         {/* Display Screen*/}
         <div className="w-full h-[15vh]">
           <textarea
-            className="w-full h-full p-4 text-2xl font-semibold resize-none overflow-y-auto break-words custom-scroll border border-slate-600 bg-transparent text-sky-300 rounded focus:outline-none focus:ring-2 focus:ring-sky-300 transition "
+            className=" font-['Abhaya_Libre'] font-bold w-full h-full p-4 text-2xl font-semibold resize-none overflow-y-auto break-words custom-scroll border border-slate-600 bg-transparent text-sky-300 rounded focus:outline-none focus:ring-2 focus:ring-sky-300 transition "
             value={expression}
             readOnly
             placeholder="Start Calculating..."

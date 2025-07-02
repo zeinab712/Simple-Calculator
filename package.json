@@ -1,8 +1,8 @@
 
 {
-  "homepage": "https://zeinab712.github.io/Simple-Calculator",
   "name": "simple-calculator",
   "private": true,
+  "homepage": "https://zeinab712.github.io/Simple-Calculator",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
