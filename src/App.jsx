@@ -7,22 +7,23 @@ function App() {
   const [expression, setExpression] = useState("");
   const [isCalculated, setIsCalculated] = useState(false);
   const btnTxt = [
-    { text: "1", value: "1" },
-    { text: "2", value: "2" },
-    { text: "3", value: "3" },
-    { text: "+", value: "+" },
-    { text: "4", value: "4" },
-    { text: "5", value: "5" },
-    { text: "6", value: "6" },
-    { text: "-", value: "-" },
+    { text: "C", value: "C", className: "col-span-2 bg-sky-600" },
+    { text: "/", value: "/", className: "bg-sky-600" },
+    { text: "*", value: "*", className: "bg-sky-600" },
     { text: "7", value: "7" },
     { text: "8", value: "8" },
     { text: "9", value: "9" },
-    { text: "*", value: "*" },
-    { text: "=", value: "=" },
-    { text: "C", value: "C" },
-    { text: "0", value: "0" },
-    { text: "/", value: "/" },
+    { text: "-", value: "-", className: "bg-sky-600" },
+    { text: "4", value: "4" },
+    { text: "5", value: "5" },
+    { text: "6", value: "6" },
+    { text: "+", value: "+", className: "bg-sky-600" },
+    { text: "1", value: "1" },
+    { text: "2", value: "2" },
+    { text: "3", value: "3" },
+    { text: "=", value: "=", className: "row-span-2" },
+    { text: "0", value: "0", className: "col-span-2" },
+    { text: ".", value: "." },
   ];
 
   function handleButtonClick(event) {
@@ -91,7 +92,7 @@ function App() {
                           btn.text === "="
                             ? "bg-sky-300 text-slate-900 hover:bg-sky-400"
                             : "bg-slate-600 text-sky-300 hover:bg-slate-700 hover:border-sky-300"
-                        }`}
+                        } ${btn.className}`}
             >
               {btn.text}
             </button>
