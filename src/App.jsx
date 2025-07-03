@@ -1,13 +1,12 @@
 import { useState } from "react";
 import "./App.css";
-import Button from "./button";
 import { evaluate } from "mathjs";
 
 function App() {
   // Use State variables
   const [expression, setExpression] = useState("");
   const [isCalculated, setIsCalculated] = useState(false);
-  const [btnTxt, setBtnTxt] = useState([
+  const btnTxt = [
     { text: "1", value: "1" },
     { text: "2", value: "2" },
     { text: "3", value: "3" },
@@ -24,7 +23,49 @@ function App() {
     { text: "C", value: "C" },
     { text: "0", value: "0" },
     { text: "/", value: "/" },
-  ]);
+  ];
+
+  function handleButtonClick(event) {
+    const value = event.target.value;
+    if (value === "C") {
+      setExpression("");
+      setIsCalculated(false);
+      return;
+    }
+
+    if (value === "=") {
+      try {
+        const result = evaluate(expression);
+        if (!isFinite(result)) {
+          setExpression("Error: Division by zero");
+          setIsCalculated(true);
+          return;
+        } else {
+          setExpression(result.toString());
+          setIsCalculated(true);
+        }
+      } catch (error) {
+        setExpression("Error" + error.message);
+      }
+    } else {
+      if (isCalculated) {
+        if (value === "+" || value === "-" || value === "*" || value === "/") {
+          setExpression((prev) => prev + value);
+        } else {
+          setExpression(value);
+        }
+        setIsCalculated(false);
+      } else {
+        if (value === "C") {
+          setExpression("");
+          setIsCalculated(false);
+          return;
+        } else {
+          setExpression((prev) => prev + value);
+        }
+      }
+    }
+  }
 
   return (
     <>
@@ -42,56 +83,18 @@ function App() {
         {/* Buttons*/}
         <div className="grid grid-cols-4 grid-rows-4 gap-2 w-full flex-1">
           {btnTxt.map((btn) => (
-            <Button
-              text={btn.text}
+            <button
+              onClick={handleButtonClick}
               value={btn.value}
-              onClick={(event) => {
-                const value = event.target.value;
-                if (value === "C") {
-                  setExpression("");
-                  setIsCalculated(false);
-                  return;
-                }
-
-                if (value === "=") {
-                  try {
-                    const result = evaluate(expression);
-                    if (!isFinite(result)) {
-                      setExpression("Error: Division by zero");
-                      setIsCalculated(true);
-                      return;
-                    } else {
-                      setExpression(result.toString());
-                      setIsCalculated(true);
-                    }
-                  } catch (error) {
-                    setExpression("Error" + error.message);
-                  }
-                } else {
-                  if (isCalculated) {
-                    if (
-                      value === "+" ||
-                      value === "-" ||
-                      value === "*" ||
-                      value === "/"
-                    ) {
-                      setExpression((prev) => prev + value);
-                    } else {
-                      setExpression(value);
-                    }
-                    setIsCalculated(false);
-                  } else {
-                    if (value === "C") {
-                      setExpression("");
-                      setIsCalculated(false);
-                      return;
-                    } else {
-                      setExpression((prev) => prev + value);
-                    }
-                  }
-                }
-              }}
-            />
+              className={` font-['Abhaya_Libre'] font-bold flex items-center justify-center text-2xl font-semibold font-semibold py-2 rounded border border-transparent focus:outline-none focus:ring-2 focus:ring-sky-300 transition
+                        ${
+                          btn.text === "="
+                            ? "bg-sky-300 text-slate-900 hover:bg-sky-400"
+                            : "bg-slate-600 text-sky-300 hover:bg-slate-700 hover:border-sky-300"
+                        }`}
+            >
+              {btn.text}
+            </button>
           ))}
         </div>
       </div>
@@ -99,8 +102,8 @@ function App() {
       {/* Footer */}
       <footer className="footer mt-4 text-center text-sm text-slate-800 text-lg">
         <p>
-          Made with <span className="text-red-700"> &hearts;</span> <br /> Zeinab
-          Hassan
+          Made with <span className="text-red-700"> &hearts;</span> <br />{" "}
+          Zeinab Hassan
         </p>
       </footer>
     </>
